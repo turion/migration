@@ -1,0 +1,43 @@
+cabal-version:      3.0
+name:               migration
+version:            0.1.0.0
+-- synopsis:
+-- description:
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Manuel Bärenz
+maintainer:         programming@manuelbaerenz.de
+-- copyright:
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+common opts
+    ghc-options: -Wall
+    default-extensions:
+        DataKinds
+        TypeFamilies
+    build-depends:
+        base >= 4.18.3 && < 4.22,
+        generics-sop ^>= 0.5,
+        records-sop ^>= 0.1.1.1,
+    ghc-options:
+        -fprint-potential-instances
+
+
+library
+    import:           opts
+    exposed-modules:  Diff
+        Elaborated
+        Migration
+    hs-source-dirs:   src
+    default-language: GHC2021
+
+test-suite migration-test
+    import:           opts
+    default-language: GHC2021
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:
+        migration
